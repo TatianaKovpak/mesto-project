@@ -1,0 +1,19 @@
+.profile__info {
+  width: 38.18%;
+  display: grid;
+  grid-template-columns: repeat(2, auto);
+  grid-template-rows: repeat(2, auto);
+  column-gap: 18px;
+  row-gap: 16px;
+  margin-right: 27.72%;
+}
+
+@media screen and (max-width: 1023px) {
+  .profile__info {
+    width: 88.1%;
+    margin: 22.25px 0 0 0;
+    justify-content: center;
+    column-gap: 10px;
+    row-gap: 14px;
+  }
+}

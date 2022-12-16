@@ -1,0 +1,16 @@
+.profile__status {
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 21.78px;
+  color: rgba(255, 255, 255, 1);
+  margin: 0;
+}
+
+@media screen and (max-width: 1023px) {
+  .profile__status {
+    /*width: 100%;*/
+    font-size: 14px;
+    line-height: 16.94px;
+    justify-self: self-end;
+  }
+}
