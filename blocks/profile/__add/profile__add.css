@@ -13,7 +13,7 @@
 }
 
 .profile__add:hover {
-  transform: 1s;
+  transition: 1s;
   opacity: 0.6;
 }
 

@@ -4,11 +4,11 @@
   background-repeat: no-repeat;
   background-color: rgba(0, 0, 0, 0);
   border: none;
-  align-self: flex-end;
   width: 32px;
   height: 32px;
-  margin-top: 155px;
-  margin-right: 30.07%;
+  position: absolute;
+  top: -40px;
+  right: -40px;
   padding: 0;
   transition: 1s;
 }
@@ -18,24 +18,13 @@
   opacity: 0.6;
 }
 
+
+
 @media screen and (max-width: 1023px) {
   .close-icon {
     width: 20px;
     height: 20px;
-    position: static;
-    justify-self: center;
-    margin-right: 22.02%;
-    margin-bottom: 16px;
-  }
-}
-@media screen and (max-width: 767px) {
-  .close-icon {
-    width: 20px;
-    height: 20px;
-    position: static;
-    justify-self: center;
-    margin-right: 5.93%;
-    margin-bottom: 16px;
-
+    top: -36px;
+    right: 0;
   }
 }
