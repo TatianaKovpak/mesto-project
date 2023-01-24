@@ -22,76 +22,13 @@
 
         <button class="profile__add" type="button"></button>
       </section>
+
       <section class="elements">
-        <figure class="element">
-          <img
-            class="element__image"
-            src="./images/kirill-pershin-1088404-unsplash.jpg"
-            alt="Древний храм"
-          >
-          <figcaption class="element__signature">
-            <h2 class="element__title">Карачаевск</h2>
-            <button class="element__like" type="button"></button>
-          </figcaption>
-        </figure>
-        <figure class="element">
-          <img
-            class="element__image"
-            src="./images/kirill-pershin-1404681-unsplash.jpg"
-            alt="Гора Эльбрус"
-          >
-          <figcaption class="element__signature">
-            <h2 class="element__title">Гора Эльбрус</h2>
-            <button class="element__like" type="button"></button>
-          </figcaption>
-        </figure>
-        <figure class="element">
-          <img
-            class="element__image"
-            src="./images/kirill-pershin-1556355-unsplash.jpg"
-            alt="Домбай"
-          >
-          <figcaption class="element__signature">
-            <h2 class="element__title">Домбай</h2>
-            <button class="element__like" type="button"></button>
-          </figcaption>
-        </figure>
-        <figure class="element">
-          <img
-            class="element__image"
-            src="./images/kirill-pershin-1404681-unsplash.jpg"
-            alt="Гора Эльбрус"
-          >
-          <figcaption class="element__signature">
-            <h2 class="element__title">Гора Эльбрус</h2>
-            <button class="element__like" type="button"></button>
-          </figcaption>
-        </figure>
-        <figure class="element">
-          <img
-            class="element__image"
-            src="./images/kirill-pershin-1556355-unsplash.jpg"
-            alt="Домбай"
-          >
-          <figcaption class="element__signature">
-            <h2 class="element__title">Домбай</h2>
-            <button class="element__like" type="button"></button>
-          </figcaption>
-        </figure>
-        <figure class="element">
-          <img
-            class="element__image"
-            src="./images/kirill-pershin-1088404-unsplash.jpg"
-            alt="Древний храм"
-          >
-          <figcaption class="element__signature">
-            <h2 class="element__title">Карачаево-Черкессия</h2>
-            <button class="element__like" type="button"></button>
-          </figcaption>
-        </figure>
+
       </section>
+
     </main>
-    <div class="popup popup_opened">
+    <div class="popup popup__edit-profile">
 
       <div class="popup__content">
         <button class="close-icon" type="button"></button>
@@ -105,9 +42,39 @@
       </div>
 
     </div>
+    <div class="popup popup__add-card">
+
+      <div class="popup__content">
+        <button class="close-icon" type="button"></button>
+        <h2 class="popup__title">Новое место</h2>
+        <form class="profile-form" name="profile-form">
+          <input class="popup__form-name" type="text" placeholder="Название">
+          <input class="popup__form-status" type="text" placeholder="Ссылка на картинку">
+          <button class="popup__button" type="submit">Создать</button>
+        </form>
+
+      </div>
+      </div>
+      <div class="popup popup_preview">
+        <div class="popup__content popup__content_img"></div>
+
+
+        </div>
+    </div>
 
     <footer class="footer">
       <p class="copyright">&copy; 2022 Mesto Russia</p>
     </footer>
+    <template class="elements" id="card-template">
+      <figure class="element">
+        <button class="element__trash" type="button"></button>
+        <img class="element__image">
+        <figcaption class="element__signature">
+          <h2 class="element__title"></h2>
+          <button class="element__like " type="button"></button>
+        </figcaption>
+      </figure>
+    </template>
+    <script src="./script/index.js"></script>
   </body>
 </html>

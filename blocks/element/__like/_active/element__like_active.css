@@ -1,0 +1,4 @@
+.element__like_active {
+  color: rgba(0, 0, 0, 1);
+  background-image: url(../../../../images/Union.svg);
+}
