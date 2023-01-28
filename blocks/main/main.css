@@ -1,5 +1,6 @@
 .main {
   width: 68.7%;
+  min-height: 100vh;
 }
 
 @media screen and (max-width: 1023px) {
