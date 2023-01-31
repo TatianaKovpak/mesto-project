@@ -65,15 +65,15 @@ function createCard (element) {
 };
 
 function addDefaultCard (card) {
-  const defaultCard = createCard(card)
-  cardContainer.append(defaultCard)
+  const defaultCard = createCard(card);
+  cardContainer.append(defaultCard);
 }
 
 initialCards.forEach(addDefaultCard)
 
 function addNewCard (card) {
   const newCard = createCard(card);
-  cardContainer.prepend(newCard)
+  cardContainer.prepend(newCard);
 }
 
 
@@ -108,7 +108,7 @@ profileForm.addEventListener('submit', handleFormSubmit);
 cardAddSaveButton.addEventListener('click', evt => {
 
   evt.preventDefault();
-  newCard = {link: popupFormCardLink.value, name: popupFormCardName.value}
+  newCard = {link: popupFormCardLink.value, name: popupFormCardName.value};
   addNewCard(newCard);
   openClosePopup(popupAddCard) ;
 
