@@ -24,12 +24,15 @@ const popupOpenFullImageCloseIcon = popupOpenFullImageContentContainer.querySele
 const fullImage = popupOpenFullImageContentContainer.querySelector('.popup__image_full');
 const fullImageSignature = popupOpenFullImageContentContainer.querySelector('.popup__image-signature');
 
-/*функция открытия/закрытия попапов*/
+/*функции открытия/закрытия попапов*/
 
-function openClosePopup (popupElement) {
-  popupElement.classList.toggle('popup_opened');
+function openPopup (popupElement) {
+  popupElement.classList.add('popup_opened');
 };
 
+function closePopup (popupElement) {
+  popupElement.classList.remove('popup_opened');
+};
 
  /*добавление карточек*/
 
@@ -56,10 +59,10 @@ function createCard (element) {
   });
 
   card.querySelector('.element__image').addEventListener('click', () => {
-    openClosePopup (popupOpenFullImage);
     fullImage.src = card.querySelector('.element__image').src;
     fullImage.alt = card.querySelector('.element__title').textContent;
     fullImageSignature.textContent = card.querySelector('.element__title').textContent;
+    openPopup (popupOpenFullImage);
   });
   return card
 };
@@ -80,13 +83,13 @@ function addNewCard (card) {
 
 /*закрывающие иконки*/
 iconCloseProfilePopup.addEventListener('click', () => {
-  openClosePopup(popupChangeProfile)
+  closePopup(popupChangeProfile)
 });
 iconClosePopupAddCard.addEventListener('click', () => {
-  openClosePopup(popupAddCard)
+  closePopup(popupAddCard)
 });
  popupOpenFullImageCloseIcon.addEventListener('click', () => {
-   openClosePopup(popupOpenFullImage)
+  closePopup(popupOpenFullImage)
   });
 
 /*кнопки сохранения данных попапов*/
@@ -94,7 +97,7 @@ profileEditSaveButton.addEventListener('click', evt => {
   evt.preventDefault();
   profileName.textContent = popupFormProfileName.value;
   profileStatus.textContent = popupFormProfileStatus.value;
-  openClosePopup(popupChangeProfile);
+  closePopup(popupChangeProfile);
 });
 
 const profileForm = document.querySelector('.profile-form');
@@ -106,26 +109,25 @@ function handleFormSubmit(evt) {
 profileForm.addEventListener('submit', handleFormSubmit);
 
 cardAddSaveButton.addEventListener('click', evt => {
-
   evt.preventDefault();
   newCard = {link: popupFormCardLink.value, name: popupFormCardName.value};
   addNewCard(newCard);
-  openClosePopup(popupAddCard) ;
+  closePopup(popupAddCard) ;
 
 })
 cardAddSaveButton.addEventListener('submit', createCard);
 
 /*кнопки открытия попапов*/
 profileEditButton.addEventListener('click', () => {
-  openClosePopup(popupChangeProfile);
-  popupFormProfileName.value = '';
-  popupFormProfileStatus.value = '';
+  popupFormProfileName.value = profileName.textContent;
+  popupFormProfileStatus.value = profileStatus.textContent;
+  openPopup(popupChangeProfile);
 });
 
 profileAddButton.addEventListener('click',  () => {
-  openClosePopup(popupAddCard);
   popupFormCardName.value = '';
   popupFormCardLink.value = '';
+  openPopup(popupAddCard);
 });
 
 
