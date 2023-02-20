@@ -4,16 +4,15 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./pages/index.css">
     <title>Mesto</title>
   </head>
   <body class="page">
     <header class="header">
-      <img class="header__logo" src="./images/Vector.svg" alt="Логотип" >
+      <img class="header__logo" src="<%=require('./images/Vector.svg')%>"  alt="Логотип" >
     </header>
     <main class="main">
       <section class="profile">
-        <img class="avatar" src="./images/image.jpg" alt="Аватар">
+        <img class="avatar" src="<%=require('./images/image.jpg')%>" alt="Аватар">
         <div class="profile__info">
           <h1 class="profile__name">Жак-Ив Кусто</h1>
           <button class="profile__edit" type="button"></button>
@@ -39,9 +38,11 @@
       <div class="popup__content">
         <button class="close-icon" type="button"></button>
         <h2 class="popup__title">Редактировать профиль</h2>
-        <form class="profile-form" name="profile-form">
-          <input class="popup__form-name" type="text" placeholder="Как вас зовут?">
-          <input class="popup__form-status" type="text" placeholder="Чем вы занимаетесь?">
+        <form class="profile-form" name="profile-form" novalidate>
+          <input class="popup__form-name form__input" id="name" type="text" placeholder="Как вас зовут?" minlength="2" maxlength="40" required data-valid="Разрешены только латинские, кириллические буквы, знаки дефиса и пробелы">
+          <span class="form__error name-error"></span>
+          <input class="popup__form-status form__input" id="status" type="text" placeholder="Чем вы занимаетесь?" minlength="2" maxlength="200" required data-valid="Разрешены только латинские, кириллические буквы, знаки дефиса и пробелы">
+          <span class="form__error status-error"></span>
           <button class="popup__button" type="submit">Сохранить</button>
         </form>
 
@@ -53,9 +54,12 @@
       <div class="popup__content">
         <button class="close-icon" type="button"></button>
         <h2 class="popup__title">Новое место</h2>
-        <form class="profile-form" name="profile-form">
-          <input class="popup__form-name" type="text" placeholder="Название">
-          <input class="popup__form-status" type="text" placeholder="Ссылка на картинку">
+        <form class="profile-form" name="profile-form" novalidate>
+          <input class="popup__form-name form__input" id="card-name" type="text" placeholder="Название" minlength="2" maxlength="30" required data-valid="Разрешены только латинские, кириллические буквы, знаки дефиса и пробелы">
+          <span class="form__error card-name-error"></span>
+          <input class="popup__form-status form__input" id="link" type="url" placeholder="Ссылка на картинку" required>
+          <span class="form__error link-error">Введите адрес сайта.</span>
+
           <button class="popup__button" type="submit">Создать</button>
         </form>
 
@@ -81,8 +85,7 @@
         </figcaption>
       </figure>
     </template>
-    <script src="./script/initialData.js"></script>
-    <script src="./script/index.js"></script>
+
 
   </body>
 </html>
