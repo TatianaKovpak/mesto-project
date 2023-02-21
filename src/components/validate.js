@@ -41,7 +41,6 @@ export function setEventListeners(formEl, validationObject) {
   inputList.forEach((inputEl) => {
     inputEl.addEventListener('input', () => {
       isValid(formEl, inputEl, validationObject);
-      //checkByRegex(inputEl);
       toggleButtonState(inputList, buttonEl, validationObject);
     });
   });
