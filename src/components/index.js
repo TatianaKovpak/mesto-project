@@ -1,26 +1,26 @@
 import { validate } from 'schema-utils';
 import '../pages/index.css';
 
-import {  popupOpenFullImage, popupOpenFullImageCloseIcon, createCard, addNewCard } from './card.js';
+import { addNewCard } from './card.js';
 
 import { addButtonDisabled } from './utils.js';
 
-import { openPopup, closePopup, popupAddCard, popupChangeProfile, profileAddButton, profileEditButton, popupFormCardName, popupFormCardLink, iconCloseProfilePopup, profileEditSaveButton, iconClosePopupAddCard, cardAddSaveButton, popupFormProfileName, popupFormProfileStatus, profileName, profileStatus } from './modal.js';
+import { openPopup, closePopup, popupAddCard, popupChangeProfile, profileAddButton, profileEditButton, popupFormCardName, popupFormCardLink, profileEditSaveButton, cardAddSaveButton, popupFormProfileName, popupFormProfileStatus, profileName, profileStatus } from './modal.js';
 
 import { enableValidation } from './validate.js'
 
+const popups = document.querySelectorAll('.popup')
 
-
-/*закрывающие иконки*/
-iconCloseProfilePopup.addEventListener('click', () => {
-  closePopup(popupChangeProfile)
-});
-iconClosePopupAddCard.addEventListener('click', () => {
-  closePopup(popupAddCard)
-});
- popupOpenFullImageCloseIcon.addEventListener('click', () => {
-  closePopup(popupOpenFullImage)
+popups.forEach((popup) => {
+  popup.addEventListener('mousedown', evt => {
+    if(evt.target.classList.contains('popup_opened')) {
+      closePopup(popup);
+    };
+    if(evt.target.classList.contains('close-icon')) {
+      closePopup(popup)
+    };
   });
+});
 
 /*кнопки сохранения данных попапов*/
 profileEditSaveButton.addEventListener('click', evt => {
@@ -32,9 +32,10 @@ profileEditSaveButton.addEventListener('click', evt => {
 
 const profileForm = document.querySelector('.profile-form');
 function handleFormSubmit(evt) {
+  profileForm.reset();
   evt.preventDefault();
-  profileName.textContent = popupFormProfileName.value;
-  profileStatus.textContent = popupFormProfileStatus.value;
+  popupEl = document.querySelector('.popup_opened')
+  closePopup(popupEl);
 };
 profileForm.addEventListener('submit', handleFormSubmit);
 
@@ -45,7 +46,7 @@ cardAddSaveButton.addEventListener('click', evt => {
   closePopup(popupAddCard) ;
 
 })
-cardAddSaveButton.addEventListener('submit', createCard);
+
 
 /*кнопки открытия попапов*/
 profileEditButton.addEventListener('click', () => {
