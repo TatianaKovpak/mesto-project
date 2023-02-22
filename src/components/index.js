@@ -24,7 +24,8 @@ popups.forEach((popup) => {
 
 /*кнопки сохранения данных попапов*/
 
-const profileForm = document.querySelector('.profile-form');
+const profileForm = document.querySelector('#profile-form');
+const cardForm = document.querySelector('#card-form')
 
 function handleFormSubmitAddCard(evt) {
   evt.preventDefault();
@@ -34,9 +35,12 @@ function handleFormSubmitAddCard(evt) {
   closePopup(popupAddCard);
 };
 
-profileForm.addEventListener('submit', handleFormSubmitAddCard);
-cardAddSaveButton.addEventListener('click', handleFormSubmitAddCard);
 
+
+cardForm.addEventListener('submit', handleFormSubmitAddCard);
+cardAddSaveButton.addEventListener('click', () => {
+  closePopup(popupAddCard)
+});
 
 function handleFormSubmitProfile(evt) {
   evt.preventDefault();
@@ -44,8 +48,11 @@ function handleFormSubmitProfile(evt) {
   profileStatus.textContent = popupFormProfileStatus.value;
   closePopup(popupChangeProfile);
 };
+
 profileForm.addEventListener('submit', handleFormSubmitProfile);
-profileEditSaveButton.addEventListener('click', handleFormSubmitProfile);
+profileEditSaveButton.addEventListener('click', () => {
+  closePopup(popupChangeProfile)
+});
 
 
 
