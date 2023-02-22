@@ -23,29 +23,30 @@ popups.forEach((popup) => {
 });
 
 /*кнопки сохранения данных попапов*/
-profileEditSaveButton.addEventListener('click', evt => {
+
+const profileForm = document.querySelector('.profile-form');
+
+function handleFormSubmitAddCard(evt) {
+  evt.preventDefault();
+  profileForm.reset();
+  const newCard = {link: popupFormCardLink.value, name: popupFormCardName.value};
+  addNewCard(newCard);
+  closePopup(popupAddCard);
+};
+
+profileForm.addEventListener('submit', handleFormSubmitAddCard);
+cardAddSaveButton.addEventListener('click', handleFormSubmitAddCard);
+
+
+function handleFormSubmitProfile(evt) {
   evt.preventDefault();
   profileName.textContent = popupFormProfileName.value;
   profileStatus.textContent = popupFormProfileStatus.value;
   closePopup(popupChangeProfile);
-});
-
-const profileForm = document.querySelector('.profile-form');
-function handleFormSubmit(evt) {
-  profileForm.reset();
-  evt.preventDefault();
-  popupEl = document.querySelector('.popup_opened')
-  closePopup(popupEl);
 };
-profileForm.addEventListener('submit', handleFormSubmit);
+profileForm.addEventListener('submit', handleFormSubmitProfile);
+profileEditSaveButton.addEventListener('click', handleFormSubmitProfile);
 
-cardAddSaveButton.addEventListener('click', evt => {
-  evt.preventDefault();
-  const newCard = {link: popupFormCardLink.value, name: popupFormCardName.value};
-  addNewCard(newCard);
-  closePopup(popupAddCard) ;
-
-})
 
 
 /*кнопки открытия попапов*/
