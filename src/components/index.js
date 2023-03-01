@@ -33,21 +33,11 @@ const cardForm = document.querySelector('#card-form');
 function handleFormSubmitAddCard(evt) {
   evt.preventDefault();
   profileForm.reset();
-
+  const newCard = {name: popupFormCardName.value, link: popupFormCardLink.value}
   postCard()
-  .then(res => {
-    const newCard = {name: popupFormCardName.value, link: popupFormCardLink.value}
-    console.log(res)
-    addNewCard(res)
-
-  })
-
-
-
+  addNewCard(newCard)
 
   closePopup(popupAddCard);
-
-
 
 };
 
