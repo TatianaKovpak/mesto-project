@@ -10,10 +10,15 @@
   background-size: contain;
   background-repeat: no-repeat;
   background-image: url(../../../images/Trash.svg);
+  visibility: hidden;
 }
 
 
 .element__trash:hover {
   transition: 1s;
   opacity: 0.5;
+}
+
+.element__trash_visible {
+  visibility: visible;
 }

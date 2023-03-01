@@ -1,4 +1,5 @@
 import { addButtonDisabled } from "./utils.js";
+import { getCards, getProfile } from "./api.js";
 
 
 
@@ -10,12 +11,21 @@ export const popupFormProfileStatus = popupChangeProfile.querySelector('.popup__
 
 export const profileName = document.querySelector('.profile__name');
 export const profileStatus = document.querySelector('.profile__status');
+const avatar = document.querySelector('.avatar');
 
 export const profileAddButton = document.querySelector('.profile__add');
 export const popupAddCard = document.querySelector('.popup__add-card');
 export const popupFormCardName = popupAddCard.querySelector('.popup__form-name');
 export const popupFormCardLink = popupAddCard.querySelector('.popup__form-status');
 export const cardAddSaveButton = popupAddCard.querySelector('.popup__button');
+
+getProfile()
+.then( res => {
+  console.log(res)
+  profileName.textContent = res.name;
+  profileStatus.textContent = res.about;
+  avatar.src = res.avatar
+})
 
 function closeByEscape(evt) {
   if (evt.key === 'Escape') {
@@ -45,4 +55,5 @@ profileEditButton.addEventListener('click', () => {
 profileAddButton.addEventListener('click',  () => {
   openPopup(popupAddCard);
   addButtonDisabled(cardAddSaveButton);
+
 });

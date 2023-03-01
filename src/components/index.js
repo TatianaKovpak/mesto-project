@@ -9,6 +9,8 @@ import { openPopup, closePopup, popupAddCard, popupChangeProfile, profileAddButt
 
 import { enableValidation } from './validate.js'
 
+import { getCards, patchProfile, postCard } from './api.js';
+
 const popups = document.querySelectorAll('.popup')
 
 popups.forEach((popup) => {
@@ -22,7 +24,7 @@ popups.forEach((popup) => {
   });
 });
 
-/*кнопки сохранения данных попапов*/
+
 
 const profileForm = document.querySelector('#profile-form');
 const cardForm = document.querySelector('#card-form');
@@ -31,18 +33,32 @@ const cardForm = document.querySelector('#card-form');
 function handleFormSubmitAddCard(evt) {
   evt.preventDefault();
   profileForm.reset();
-  const newCard = {link: popupFormCardLink.value, name: popupFormCardName.value};
-  addNewCard(newCard);
+
+  postCard()
+  .then(res => {
+    const newCard = {name: popupFormCardName.value, link: popupFormCardLink.value}
+    console.log(res)
+    addNewCard(res)
+
+  })
+
+
+
+
   closePopup(popupAddCard);
+
+
+
 };
 
-cardForm.addEventListener('submit', handleFormSubmitAddCard);
+cardForm.addEventListener('submit', handleFormSubmitAddCard );
 
 function handleFormSubmitProfile(evt) {
   evt.preventDefault();
   profileName.textContent = popupFormProfileName.value;
   profileStatus.textContent = popupFormProfileStatus.value;
   closePopup(popupChangeProfile);
+  patchProfile()
 };
 
 profileForm.addEventListener('submit', handleFormSubmitProfile);
@@ -75,6 +91,9 @@ enableValidation({
   inputErrorClass: 'form__input_error',
   errorClass: 'form__error_active'
 });
+
+
+
 
 
 

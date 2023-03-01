@@ -77,11 +77,14 @@
     </div>
     <template class="elements" id="card-template">
       <figure class="element">
-        <button class="element__trash" type="button"></button>
+        <button class="element__trash" type="button" disabled="true"></button>
         <img class="element__image">
         <figcaption class="element__signature">
           <h2 class="element__title"></h2>
+          <div class="like-container">
           <button class="element__like " type="button"></button>
+          <h2 class ="element__like-quantity"></h2>
+        </div>
         </figcaption>
       </figure>
     </template>
