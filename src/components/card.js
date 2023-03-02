@@ -1,5 +1,5 @@
-import { openPopup, popupAddCard } from "./modal.js";
-import { getCards, getProfile } from "./api.js";
+import { openPopup, removeCardPopup, removeCardButton, closePopup } from "./modal.js";
+import { getCards, putLike, removeCard, removeLike } from "./api.js";
 
 
 export const cardContainer = document.querySelector('.elements');
@@ -18,28 +18,62 @@ export function createCard (element) {
   card.querySelector('.element__image').alt = card.querySelector('.element__title').textContent;
 
 
+  const cardId = element._id;
 
   if (element.owner._id === '4513125bff9de8b685acca9e') {
-  const trash = card.querySelector('.element__trash');
-  trash.disabled = false
-  trash.classList.add('element__trash_visible')
-  trash.addEventListener('click', evt => {
-    evt.preventDefault();
-    const cardItem = trash.closest('.element');
-    cardItem.remove();
-  })
-  }
+    const trash = card.querySelector('.element__trash');
+    trash.disabled = false
+    trash.classList.add('element__trash_visible')
+    trash.addEventListener('click', evt => {
+      openPopup(removeCardPopup);
+      removeCardButton.addEventListener('click', () => {
+      evt.preventDefault();
+      const cardItem = trash.closest('.element');
+      removeCard(cardId)
+      .catch((err) => {
+        console.log(err)
+      })
+      cardItem.remove();
+      closePopup(removeCardPopup)
+    })
+    })
+    }
 
   const like = card.querySelector('.element__like');
-
-  like.addEventListener('click', () => {
-    like.classList.toggle('element__like_active');
-  });
-
   const likeQuantity = card.querySelector('.element__like-quantity');
+  const findLike = () => {
+    for (let i of Object.values(element.likes)) {
+      if(i._id ==='4513125bff9de8b685acca9e') {
+        like.classList.add('element__like_active')
+
+      }
+    }
+  }
+  findLike()
+
   likeQuantity.textContent = element.likes.length;
 
+  like.addEventListener('click', (evt) => {
+   if ((evt.target.classList.contains('element__like_active')) || ((!evt.target.classList.contains('element__like_active')) && (element.likes._id === '4513125bff9de8b685acca9e'))) {
+     removeLike(cardId)
+     .catch((err) => {
+      console.log(err)
+     })
+        like.classList.toggle('element__like_active');
+        element.likes.length --
+        likeQuantity.textContent = element.likes.length;
 
+   } else {
+    putLike(cardId)
+    .catch((err) => {
+      console.log(err)
+    })
+      like.classList.add('element__like_active');
+      element.likes.length ++
+      likeQuantity.textContent = element.likes.length;
+   }
+  })
+  //console.log(element.likes)
 
   card.querySelector('.element__image').addEventListener('click', () => {
     fullImage.src = card.querySelector('.element__image').src;
@@ -67,6 +101,9 @@ getCards()
 .then(res => {
   res.forEach(addDefaultCard)
   console.log(res)
+})
+.catch((err) => {
+  console.log(err)
 })
 
 

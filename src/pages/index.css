@@ -2,6 +2,7 @@
 @import url(../vendor/normalize.css);
 
 @import url(../blocks/avatar/avatar.css);
+@import url(../blocks/avatar-container/avatar-container.css);
 
 @import url(../blocks/element/element.css);
 @import url(../blocks/element/__like/element__like.css);

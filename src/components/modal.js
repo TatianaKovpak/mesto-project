@@ -1,5 +1,5 @@
 import { addButtonDisabled } from "./utils.js";
-import { getCards, getProfile } from "./api.js";
+import { getProfile } from "./api.js";
 
 
 
@@ -11,7 +11,7 @@ export const popupFormProfileStatus = popupChangeProfile.querySelector('.popup__
 
 export const profileName = document.querySelector('.profile__name');
 export const profileStatus = document.querySelector('.profile__status');
-const avatar = document.querySelector('.avatar');
+export const avatar = document.querySelector('.avatar');
 
 export const profileAddButton = document.querySelector('.profile__add');
 export const popupAddCard = document.querySelector('.popup__add-card');
@@ -19,12 +19,29 @@ export const popupFormCardName = popupAddCard.querySelector('.popup__form-name')
 export const popupFormCardLink = popupAddCard.querySelector('.popup__form-status');
 export const cardAddSaveButton = popupAddCard.querySelector('.popup__button');
 
+export const avatarChange = document.querySelector('.avatar-container');
+export const avatarChangePopup = document.querySelector('.popup__add-avatar');
+export const avatarSaveButton = avatarChangePopup.querySelector('.popup__button');
+export const avatarInput = avatarChangePopup.querySelector('.popup__form-status');
+
+export const removeCardPopup = document.querySelector('.popup__remove-card');
+export const removeCardButton = removeCardPopup.querySelector('.popup__button')
+
+avatarChange.addEventListener('click', () => {
+  openPopup(avatarChangePopup);
+  addButtonDisabled(avatarSaveButton);
+
+})
+
 getProfile()
 .then( res => {
   console.log(res)
   profileName.textContent = res.name;
   profileStatus.textContent = res.about;
   avatar.src = res.avatar
+})
+.catch((err) => {
+  console.log(err)
 })
 
 function closeByEscape(evt) {
