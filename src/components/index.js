@@ -5,30 +5,29 @@ import { addNewCard, addDefaultCard } from './card.js';
 
 import { addButtonDisabled, renderLoading } from './utils.js';
 
-import { openPopup, closePopup, popupAddCard, popupChangeProfile, profileAddButton, profileEditButton, popupFormCardName, popupFormCardLink, profileEditSaveButton, cardAddSaveButton, popupFormProfileName, popupFormProfileStatus, profileName, profileStatus, avatar, avatarInput, avatarChangePopup, avatarSaveButton } from './modal.js';
+import { openPopup, closePopup, popupAddCard, popupChangeProfile, profileAddButton, profileEditButton, popupFormCardName, popupFormCardLink, profileEditSaveButton, cardAddSaveButton, popupFormProfileName, popupFormProfileStatus, profileName, profileStatus, avatar, avatarChangePopup, avatarSaveButton } from './modal.js';
 
-import { enableValidation } from './validate.js'
+import { enableValidation } from './validate.js';
 
 import { changeAvatar,  patchProfile, postCard, getProfile, getCards } from './api.js';
 
-export let userId
+export let userId;
 
 Promise.all([getProfile(), getCards()])
 
 .then(([userInfo, cards]) => {
-  console.log(userInfo, cards)
-  userId = userInfo._id
+  //console.log(userInfo, cards)
+  userId = userInfo._id;
   profileName.textContent = userInfo.name;
   profileStatus.textContent = userInfo.about;
-  avatar.src = userInfo.avatar
-  cards.forEach(addDefaultCard)
-
+  avatar.src = userInfo.avatar;
+  cards.forEach(addDefaultCard);
 })
 .catch((err) => {
-  console.log(err)
+  console.log(err);
 })
 
-const popups = document.querySelectorAll('.popup')
+const popups = document.querySelectorAll('.popup');
 
 popups.forEach((popup) => {
   popup.addEventListener('mousedown', evt => {
@@ -36,7 +35,7 @@ popups.forEach((popup) => {
       closePopup(popup);
     };
     if(evt.target.classList.contains('close-icon')) {
-      closePopup(popup)
+      closePopup(popup);
     };
   });
 });
@@ -44,70 +43,63 @@ popups.forEach((popup) => {
 
 const profileForm = document.querySelector('#profile-form');
 const cardForm = document.querySelector('#card-form');
-const avatarForm = document.querySelector('#avatar-form')
+const avatarForm = document.querySelector('#avatar-form');
 
 
 function handleFormSubmitAvatar(evt) {
   evt.preventDefault();
-
-  renderLoading(true, avatarSaveButton)
-
+  renderLoading(true, avatarSaveButton);
   changeAvatar()
   .then(res =>{
-    // res.src = avatarInput.value
-    // window.location.reload()
-    avatar.src = res.avatar
+    avatar.src = res.avatar;
 })
   .catch((err) => {
-    console.log(err)
+    console.log(err);
   })
   .finally(() => {
-    renderLoading(false, avatarSaveButton)
+    renderLoading(false, avatarSaveButton);
   })
   avatarForm.reset()
-  closePopup(avatarChangePopup)
+  closePopup(avatarChangePopup);
 
 }
-avatarForm.addEventListener('submit', handleFormSubmitAvatar)
+avatarForm.addEventListener('submit', handleFormSubmitAvatar);
 
 function handleFormSubmitAddCard(evt) {
   evt.preventDefault();
-  // const newCard = {name: popupFormCardName.value, link: popupFormCardLink.value, likes: [], owner: {_id: userId}}
-
-  renderLoading(true, cardAddSaveButton)
-  //+
+  renderLoading(true, cardAddSaveButton);
   postCard()
   .then(res => {
-    // console.log(res)
     addNewCard(res)
+    closePopup(popupAddCard);
   })
   .catch((err) => {
-    console.log(err)
+    console.log(err);
   })
   .finally(() => {
-    renderLoading(false, cardAddSaveButton)
-    })
-  closePopup(popupAddCard)
-
+    renderLoading(false, cardAddSaveButton);
+  })
 };
 
 cardForm.addEventListener('submit', handleFormSubmitAddCard);
 
 function handleFormSubmitProfile(evt) {
   evt.preventDefault();
-  profileName.textContent = popupFormProfileName.value;
-  profileStatus.textContent = popupFormProfileStatus.value;
-  closePopup(popupChangeProfile);
-  renderLoading(true, profileEditSaveButton)
+  renderLoading(true, profileEditSaveButton);
   patchProfile()
+  .then(res => {
+    console.log(res)
+    profileName.textContent = res.name;
+    profileStatus.textContent = res.about;
+    closePopup(popupChangeProfile);
+  })
   .catch((err) => {
-    console.log(err)
+    console.log(err);
   })
   .finally(() => {
-    renderLoading(false, profileEditSaveButton)
+    renderLoading(false, profileEditSaveButton);
   })
 };
-
 profileForm.addEventListener('submit', handleFormSubmitProfile);
 
 /*кнопки открытия попапов*/
@@ -124,7 +116,6 @@ profileAddButton.addEventListener('click',  () => {
   openPopup(popupAddCard);
   addButtonDisabled(cardAddSaveButton);
 });
-
 
 //валидация
 enableValidation({

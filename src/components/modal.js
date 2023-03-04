@@ -44,12 +44,12 @@ function closeByEscape(evt) {
 
 export function openPopup (popupElement) {
   popupElement.classList.add('popup_opened');
-  document.addEventListener('keydown', closeByEscape)
+  document.addEventListener('keydown', closeByEscape);
 };
 
 export function closePopup (popupElement) {
   popupElement.classList.remove('popup_opened');
-  document.removeEventListener('keydown', closeByEscape)
+  document.removeEventListener('keydown', closeByEscape);
 
 
 
