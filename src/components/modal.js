@@ -1,5 +1,5 @@
 import { addButtonDisabled } from "./utils.js";
-import { getProfile } from "./api.js";
+
 
 
 
@@ -33,21 +33,12 @@ avatarChange.addEventListener('click', () => {
 
 })
 
-getProfile()
-.then( res => {
-  console.log(res)
-  profileName.textContent = res.name;
-  profileStatus.textContent = res.about;
-  avatar.src = res.avatar
-})
-.catch((err) => {
-  console.log(err)
-})
 
 function closeByEscape(evt) {
   if (evt.key === 'Escape') {
     const openedPopup = document.querySelector('.popup_opened');
     closePopup(openedPopup);
+
   }
 }
 
@@ -60,17 +51,8 @@ export function closePopup (popupElement) {
   popupElement.classList.remove('popup_opened');
   document.removeEventListener('keydown', closeByEscape)
 
+
+
 };
 
-profileEditButton.addEventListener('click', () => {
-  popupFormProfileName.value = profileName.textContent;
-  popupFormProfileStatus.value = profileStatus.textContent;
-  openPopup(popupChangeProfile);
-  addButtonDisabled(profileEditSaveButton);
-});
 
-profileAddButton.addEventListener('click',  () => {
-  openPopup(popupAddCard);
-  addButtonDisabled(cardAddSaveButton);
-
-});

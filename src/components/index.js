@@ -1,7 +1,7 @@
-import { validate } from 'schema-utils';
+
 import '../pages/index.css';
 
-import { addNewCard } from './card.js';
+import { addNewCard, addDefaultCard } from './card.js';
 
 import { addButtonDisabled, renderLoading } from './utils.js';
 
@@ -9,7 +9,24 @@ import { openPopup, closePopup, popupAddCard, popupChangeProfile, profileAddButt
 
 import { enableValidation } from './validate.js'
 
-import { changeAvatar,  patchProfile, postCard } from './api.js';
+import { changeAvatar,  patchProfile, postCard, getProfile, getCards } from './api.js';
+
+export let userId
+
+Promise.all([getProfile(), getCards()])
+
+.then(([userInfo, cards]) => {
+  console.log(userInfo, cards)
+  userId = userInfo._id
+  profileName.textContent = userInfo.name;
+  profileStatus.textContent = userInfo.about;
+  avatar.src = userInfo.avatar
+  cards.forEach(addDefaultCard)
+
+})
+.catch((err) => {
+  console.log(err)
+})
 
 const popups = document.querySelectorAll('.popup')
 
@@ -29,11 +46,18 @@ const profileForm = document.querySelector('#profile-form');
 const cardForm = document.querySelector('#card-form');
 const avatarForm = document.querySelector('#avatar-form')
 
+
 function handleFormSubmitAvatar(evt) {
   evt.preventDefault();
-  avatar.src = avatarInput.value;
+
   renderLoading(true, avatarSaveButton)
+
   changeAvatar()
+  .then(res =>{
+    // res.src = avatarInput.value
+    // window.location.reload()
+    avatar.src = res.avatar
+})
   .catch((err) => {
     console.log(err)
   })
@@ -48,11 +72,15 @@ avatarForm.addEventListener('submit', handleFormSubmitAvatar)
 
 function handleFormSubmitAddCard(evt) {
   evt.preventDefault();
-  profileForm.reset();
-  const newCard = {name: popupFormCardName.value, link: popupFormCardLink.value, likes: [], owner: {_id: "4513125bff9de8b685acca9e"}}
-  addNewCard(newCard)
+  // const newCard = {name: popupFormCardName.value, link: popupFormCardLink.value, likes: [], owner: {_id: userId}}
+
   renderLoading(true, cardAddSaveButton)
+  //+
   postCard()
+  .then(res => {
+    // console.log(res)
+    addNewCard(res)
+  })
   .catch((err) => {
     console.log(err)
   })
@@ -107,7 +135,6 @@ enableValidation({
   inputErrorClass: 'form__input_error',
   errorClass: 'form__error_active'
 });
-
 
 
 

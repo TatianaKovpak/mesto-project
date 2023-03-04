@@ -1,6 +1,5 @@
-
-
 import { popupFormProfileName, popupFormProfileStatus, popupFormCardName, popupFormCardLink, avatarInput } from "./modal.js";
+import { checkResponse } from "./utils.js";
 
 const config = {
   baseUrl: 'https://nomoreparties.co/v1/plus-cohort-21',
@@ -10,33 +9,22 @@ const config = {
   }
 }
 
-
-
-
-
 export const getProfile =  () => {
 return fetch(`${config.baseUrl}/users/me`, {
   headers: config.headers
 })
-  .then(res => {
-    if (res.ok) {
-    return res.json()
-    }
-    return Promise.reject(`Ошибка: ${res.status}`)
-})
+    .then(checkResponse)
 }
 
 export const getCards = () => {
  return fetch(`${config.baseUrl}/cards`, {
     headers: config.headers
   })
-  .then(res => {
-    if (res.ok) {
-    return res.json()
-    }
-    return Promise.reject(`Ошибка: ${res.status}`)
-})
+    .then(checkResponse)
 }
+
+
+
 
 export const patchProfile = () => {
  return fetch (`${config.baseUrl}/users/me`, {
@@ -46,7 +34,8 @@ export const patchProfile = () => {
     name: popupFormProfileName.value,
     about: popupFormProfileStatus.value
   })
-});
+})
+   .then(checkResponse)
 }
 
 export const postCard = () => {
@@ -57,7 +46,8 @@ export const postCard = () => {
     name: popupFormCardName.value,
     link: popupFormCardLink.value
   })
-});
+})
+.then(checkResponse)
 }
 
 export const removeCard = (cardId) => {
@@ -65,6 +55,7 @@ export const removeCard = (cardId) => {
     method: 'DELETE',
     headers: config.headers
   })
+  .then(checkResponse)
 }
 
 export const putLike =  (cardId) => {
@@ -72,6 +63,7 @@ export const putLike =  (cardId) => {
     method: 'PUT',
     headers: config.headers
 })
+  .then(checkResponse)
 }
 
 export const removeLike = (cardId) => {
@@ -79,6 +71,7 @@ export const removeLike = (cardId) => {
     method: 'DELETE',
     headers: config.headers
 })
+.then(checkResponse)
 }
 
 export const changeAvatar = () => {
@@ -89,5 +82,6 @@ export const changeAvatar = () => {
       avatar: avatarInput.value
     })
   })
+  .then(checkResponse)
 
 }
