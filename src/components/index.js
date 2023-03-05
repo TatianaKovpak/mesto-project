@@ -52,6 +52,8 @@ function handleFormSubmitAvatar(evt) {
   changeAvatar()
   .then(res =>{
     avatar.src = res.avatar;
+    avatarForm.reset()
+    closePopup(avatarChangePopup);
 })
   .catch((err) => {
     console.log(err);
@@ -59,8 +61,7 @@ function handleFormSubmitAvatar(evt) {
   .finally(() => {
     renderLoading(false, avatarSaveButton);
   })
-  avatarForm.reset()
-  closePopup(avatarChangePopup);
+
 
 }
 avatarForm.addEventListener('submit', handleFormSubmitAvatar);
